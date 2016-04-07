@@ -68,6 +68,7 @@
 
   <!-- Strings related to Menus -->
   <string name="menu_item_settings_text">Settings</string>
+  <string name="menu_item_refresh_text">Refresh</string>
 
   <!-- Strings related to Settings -->
 
@@ -77,11 +78,14 @@
   <string name="pref_sort_key" translatable="false">sort_order</string>
 
   <!-- Keys for sort options [CHAR LIMIT=NONE] -->
-  <string name="pref_sort_highest_rated" translatable="false">highest_rated</string>
-  <string name="pref_sort_most_popular" translatable="false">most_popular</string>
+  <string name="pref_sort_highest_rated" translatable="false">vote_average</string>
+  <string name="pref_sort_most_popular" translatable="false">popularity</string>
 
   <!-- Label for highest rated option in sort preference [CHAR LIMIT=25] -->
   <string name="pref_sort_label_highest_rated">Highest Rated</string>
   <!-- Label for most popular option in sort preference [CHAR LIMIT=25] -->
   <string name="pref_sort_label_most_popular">Most Popular</string>
+
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
