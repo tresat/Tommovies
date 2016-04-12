@@ -32,9 +32,7 @@ public class FetchPostersTask extends AsyncTask<Void, Void, List<MovieData>> {
   private final String LOG_TAG = FetchPostersTask.class.getSimpleName();
 
   private final String BASE_API_URL = "https://api.themoviedb.org/3/";
-  private final String DISCOVER_PATH = "discover";
   private final String MOVIE_PATH = "movie";
-  private final String SORT_BY = "sort_by";
   private final String YEAR = "year";
   private final String API_KEY = "api_key";
 
@@ -58,15 +56,17 @@ public class FetchPostersTask extends AsyncTask<Void, Void, List<MovieData>> {
 
     postersAdapter.clear();
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-      postersAdapter.addAll(movieDatas);
-    } else {
-      postersAdapter.setNotifyOnChange(false);
-      for (MovieData s : movieDatas) {
-        postersAdapter.add(s);
+    if (null != movieDatas) {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+        postersAdapter.addAll(movieDatas);
+      } else {
+        postersAdapter.setNotifyOnChange(false);
+        for (MovieData s : movieDatas) {
+          postersAdapter.add(s);
+        }
+        postersAdapter.setNotifyOnChange(true);
+        postersAdapter.notifyDataSetChanged();
       }
-      postersAdapter.setNotifyOnChange(true);
-      postersAdapter.notifyDataSetChanged();
     }
   }
 
@@ -80,11 +80,10 @@ public class FetchPostersTask extends AsyncTask<Void, Void, List<MovieData>> {
     try {
       Uri uri = Uri.parse(BASE_API_URL)
           .buildUpon()
-          .appendPath(DISCOVER_PATH)
           .appendPath(MOVIE_PATH)
+          .appendPath(sortBy)
           .appendQueryParameter(API_KEY, BuildConfig.THE_MOVIE_DB_API_KEY)
           .appendQueryParameter(YEAR, String.valueOf(Calendar.getInstance().get(Calendar.YEAR)))
-          .appendQueryParameter(SORT_BY, String.format("%s.desc", sortBy))
           .build();
       URL url = new URL(uri.toString());
 
@@ -143,8 +142,9 @@ public class FetchPostersTask extends AsyncTask<Void, Void, List<MovieData>> {
     for (int i = 0, lim = results.length(); i < lim; i++) {
       JSONObject result = (JSONObject) results.get(i);
 
-      String posterPath = result.getString("poster_path");
-      movieDatas.add(new MovieData(posterPath));
+      String title = result.getString("title");
+      String posterFileName = result.getString("poster_path");
+      movieDatas.add(new MovieData(title, posterFileName));
     }
 
     return movieDatas;
