@@ -1,6 +1,7 @@
 package com.tomtresansky.tommovies.net;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.tomtresansky.tommovies.R;
 
 import java.util.List;
@@ -44,17 +46,19 @@ public final class PostersArrayAdapter extends ArrayAdapter<MovieData> {
   public View getView(int position, View convertView, ViewGroup parent) {
     // Gets the AndroidFlavor object from the ArrayAdapter at the appropriate position
     MovieData movieData = getItem(position);
+    Context context = getContext();
 
     // Adapters recycle views to AdapterViews.
     // If this is a new View object we're getting, then inflate the layout.
     // If not, this view already has the layout inflated from a previous call to getView,
     // and we modify the View widgets as usual.
     if (convertView == null) {
-      convertView = LayoutInflater.from(getContext()).inflate(R.layout.poster_layout, parent, false);
+      convertView = LayoutInflater.from(context).inflate(R.layout.poster_layout, parent, false);
     }
 
-    ImageView iconView = (ImageView) convertView.findViewById(R.id.poster_image);
-    iconView.setImageResource(R.drawable.ic_test);
+    ImageView posterView = (ImageView) convertView.findViewById(R.id.poster_image);
+    String posterURL = movieData.getPosterURL();
+    Picasso.with(context).load(posterURL).into(posterView);
 
     TextView versionNameView = (TextView) convertView.findViewById(R.id.poster_text);
     versionNameView.setText(movieData.getTitle());

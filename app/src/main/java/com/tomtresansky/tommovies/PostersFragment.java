@@ -1,12 +1,15 @@
 package com.tomtresansky.tommovies;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.tomtresansky.tommovies.net.FetchPostersTask;
@@ -30,6 +33,17 @@ public class PostersFragment extends Fragment {
   }
 
   @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch(item.getItemId()) {
+      case R.id.action_refresh:
+        refreshDisplay();
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
+    }
+  }
+
+  @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
     // Inflate the layout for this fragment
@@ -37,12 +51,31 @@ public class PostersFragment extends Fragment {
 
     postersAdapter = new PostersArrayAdapter(getActivity(), new ArrayList<MovieData>());
 
-    refreshDisplay();
-
     GridView gridView = (GridView) rootView.findViewById(R.id.posters_grid);
     gridView.setAdapter(postersAdapter);
 
+    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      @Override
+      public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        MovieData movieData = postersAdapter.getItem(i);
+
+        Intent startDetailIntent = new Intent(getActivity(), MovieActivity.class)
+            .putExtra(MovieActivity.DATA_KEY, movieData);
+
+        // Verify that the intent will resolve to an activity
+        if (null != startDetailIntent.resolveActivity(getActivity().getPackageManager())) {
+          startActivity(startDetailIntent);
+        }
+      }
+    });
+
     return rootView;
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    refreshDisplay();
   }
 
   private void refreshDisplay() {
