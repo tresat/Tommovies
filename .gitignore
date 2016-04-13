@@ -6,3 +6,4 @@
 .DS_Store
 /build
 /captures
+/app/movie_db_api_key.txt
