@@ -8,8 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.tomtresansky.tommovies.net.MovieData;
 
 /**
@@ -29,6 +31,10 @@ public class MovieFragment extends Fragment {
     if (null != intent) {
       if (intent.hasExtra(MovieActivity.DATA_KEY)) {
         movieData = intent.getParcelableExtra(MovieActivity.DATA_KEY);
+
+        ImageView posterView = (ImageView) rootView.findViewById(R.id.large_poster);
+        String posterURL = movieData.getPosterURL();
+        Picasso.with(getContext()).load(posterURL).into(posterView);
 
         TextView titleTextView = (TextView) rootView.findViewById(R.id.title);
         titleTextView.setText(movieData.getTitle());
