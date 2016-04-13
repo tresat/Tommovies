@@ -10,9 +10,86 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MovieFragment">
 
+  <ImageView
+      android:layout_width="fill_parent"
+      android:layout_height="400dp"
+      android:id="@+id/large_poster"
+      android:layout_gravity="center"
+      android:layout_alignParentLeft="false"
+      android:layout_marginLeft="0dp"
+      android:layout_alignParentTop="false"
+      android:layout_marginTop="@dimen/activity_vertical_margin"
+      android:layout_marginBottom="@dimen/activity_vertical_margin"
+      android:scaleType="fitCenter"/>
+
   <TextView
-      android:id="@+id/detail_text"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      android:text="Movie Title"
+      android:id="@+id/title"
+      android:layout_below="@+id/large_poster"
+      android:layout_alignParentStart="true"
+      android:layout_marginLeft="@dimen/activity_horizontal_margin"
+      android:layout_marginRight="@dimen/activity_horizontal_margin"
+      android:gravity="left"/>
+
+  <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text=""/>
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:text="Rating: "
+      android:id="@+id/ratingLabel"
+      android:layout_below="@+id/title"
+      android:layout_alignParentStart="true"
+      android:layout_marginLeft="@dimen/activity_horizontal_margin"
+      android:gravity="left"
+      android:layout_weight="1"/>
+
+  <TextView
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:text="{Rating}"
+      android:id="@+id/rating"
+      android:layout_below="@+id/title"
+      android:layout_toRightOf="@+id/ratingLabel"
+      android:layout_marginLeft="@dimen/activity_horizontal_margin"
+      android:layout_marginRight="@dimen/activity_horizontal_margin"
+      android:layout_weight="2"/>
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:text="Release Date: "
+      android:id="@+id/releaseLabel"
+      android:layout_below="@+id/ratingLabel"
+      android:layout_alignParentStart="true"
+      android:layout_marginLeft="@dimen/activity_horizontal_margin"
+      android:gravity="left"
+      android:layout_weight="1"/>
+
+  <TextView
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:text="{Relase Date}"
+      android:id="@+id/release"
+      android:layout_below="@+id/ratingLabel"
+      android:layout_toRightOf="@+id/releaseLabel"
+      android:layout_marginLeft="@dimen/activity_horizontal_margin"
+      android:layout_marginRight="@dimen/activity_horizontal_margin"
+      android:layout_weight="2"/>
+
+  <TextView
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="?android:attr/textAppearanceSmall"
+      android:text="{Plot Synopsis}"
+      android:id="@+id/synopsis"
+      android:layout_below="@+id/releaseLabel"
+      android:layout_marginLeft="@dimen/activity_horizontal_margin"
+      android:layout_marginRight="@dimen/activity_horizontal_margin"
+      android:layout_weight="2"/>
 </RelativeLayout>

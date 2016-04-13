@@ -144,7 +144,11 @@ public class FetchPostersTask extends AsyncTask<Void, Void, List<MovieData>> {
 
       String title = result.getString("title");
       String posterFileName = result.getString("poster_path");
-      movieDatas.add(new MovieData(title, posterFileName));
+      String rating = result.getString("vote_average");
+      String releaseDate = result.getString("release_date");
+      String synopsis = result.getString("overview");
+
+      movieDatas.add(new MovieData(title, posterFileName, rating, releaseDate, synopsis));
     }
 
     return movieDatas;

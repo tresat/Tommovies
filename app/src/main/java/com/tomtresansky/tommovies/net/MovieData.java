@@ -13,10 +13,16 @@ public class MovieData implements Parcelable {
 
   private final String title;
   private final String posterFileName;
+  private final String rating;
+  private final String releaseDate;
+  private final String synopsis;
 
-  public MovieData(String title, String posterFileName) {
+  public MovieData(String title, String posterFileName, String rating, String releaseDate, String synopsis) {
     this.title = title;
     this.posterFileName = posterFileName.replaceFirst("/", "");
+    this.rating = rating;
+    this.releaseDate = releaseDate;
+    this.synopsis = synopsis;
   }
 
   public String getTitle() {
@@ -32,6 +38,18 @@ public class MovieData implements Parcelable {
         .toString();
   }
 
+  public String getRating() {
+    return String.format("%s/10", rating);
+  }
+
+  public String getReleaseDate() {
+    return releaseDate;
+  }
+
+  public String getSynopsis() {
+    return synopsis;
+  }
+
   @Override
   public int describeContents() {
     return 0;
@@ -41,6 +59,9 @@ public class MovieData implements Parcelable {
   public void writeToParcel(Parcel dest, int flags) {
     dest.writeString(title);
     dest.writeString(posterFileName);
+    dest.writeString(rating);
+    dest.writeString(releaseDate);
+    dest.writeString(synopsis);
   }
 
   public static final Parcelable.Creator<MovieData> CREATOR = new Parcelable.Creator<MovieData>() {
@@ -48,8 +69,11 @@ public class MovieData implements Parcelable {
     public MovieData createFromParcel(Parcel in) {
       String title = in.readString();
       String posterFileName = in.readString();
+      String rating = in.readString();
+      String releaseDate = in.readString();
+      String synopsis = in.readString();
 
-      return new MovieData(title, posterFileName);
+      return new MovieData(title, posterFileName, rating, releaseDate, synopsis);
     }
 
     @Override

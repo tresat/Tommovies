@@ -29,8 +29,18 @@ public class MovieFragment extends Fragment {
     if (null != intent) {
       if (intent.hasExtra(MovieActivity.DATA_KEY)) {
         movieData = intent.getParcelableExtra(MovieActivity.DATA_KEY);
-        TextView detailTextView = (TextView) rootView.findViewById(R.id.detail_text);
-        detailTextView.setText(movieData.getTitle());
+
+        TextView titleTextView = (TextView) rootView.findViewById(R.id.title);
+        titleTextView.setText(movieData.getTitle());
+
+        TextView ratingTextView = (TextView) rootView.findViewById(R.id.rating);
+        ratingTextView.setText(movieData.getRating());
+
+        TextView releaseTextView = (TextView) rootView.findViewById(R.id.release);
+        releaseTextView.setText(movieData.getReleaseDate());
+
+        TextView synopsisTextView = (TextView) rootView.findViewById(R.id.synopsis);
+        synopsisTextView.setText(movieData.getSynopsis());
       } else {
         Log.d(LOG_TAG, "No movie data provided in intent!");
       }
